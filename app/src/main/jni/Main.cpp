@@ -8,7 +8,6 @@
 
 using namespace std;
 
-#include "Include/Logger.h"
 #include "Include/StringUtility.h"
 #include "Include/EmulatorData.h"
 #include "Include/FileHelper.h"
@@ -127,6 +126,13 @@ void checkFiles() {
     }
 }
 
+void checkCPUArchitecture() {
+    string abi = ::getSystemProperty("ro.product.cpu.abilist");
+
+    if (StringUtility::stringContains(abi, "x86")) {
+        detections.append("- Detected x86 Architecture\n");
+    }
+}
 
 extern "C" {
     JNIEXPORT jboolean JNICALL
@@ -136,6 +142,7 @@ extern "C" {
         checkModules();
         checkCPU();
         checkFiles();
+        checkCPUArchitecture();
 
         return !detections.empty();
     }
