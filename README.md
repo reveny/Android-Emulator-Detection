@@ -7,4 +7,4 @@ POC Tool to detect if app is ran on an emulator
 - [x] List Detections
 
 # Preview
-![image](https://github.com/reveny/Android-Emulator-Detection/assets/113244907/8136b937-3f86-4042-8a4f-c856c0f9e84d)
+![image](https://github.com/reveny/Android-Emulator-Detection/assets/113244907/4f510a2e-39a2-4e1c-817b-a1e2f7f70dc5)
