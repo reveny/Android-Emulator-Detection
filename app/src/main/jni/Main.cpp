@@ -142,7 +142,7 @@ extern "C" {
 
     JNIEXPORT jstring JNICALL
     Java_com_reveny_emulator_detection_MainActivity_getResult(JNIEnv *env, jobject clazz) {
-        detections.append("\n\n");
+        detections.append("\n\n Created by github.com/reveny");
         return env->NewStringUTF(detections.c_str());
     }
 }
