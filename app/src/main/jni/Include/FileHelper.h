@@ -2,6 +2,8 @@
 // Created by reveny on 29/08/2023.
 //
 
+#include <link.h>
+
 namespace FileHelper {
     std::vector<std::string> readFile(const string& path) {
         std::vector<std::string> returnVal = std::vector<std::string>();
@@ -35,5 +37,19 @@ namespace FileHelper {
         } else {
             return false;
         }
+    }
+
+    vector<dl_phdr_info> getLoadedLibraries() {
+        std::vector<dl_phdr_info> infos{};
+        dl_iterate_phdr([](struct dl_phdr_info *info, size_t size, void *data) -> int {
+            if ((info)->dlpi_name == nullptr) {
+                return 0;
+            }
+
+            ((std::vector<dl_phdr_info> *) data)->push_back(*info);
+            return 0;
+        }, &infos);
+
+        return infos;
     }
 }

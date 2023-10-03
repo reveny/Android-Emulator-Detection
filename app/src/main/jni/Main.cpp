@@ -119,9 +119,9 @@ void checkCPU() {
  * Emulator specific files, most of these can be spoofed if you know which files you need
  */
 void checkFiles() {
-    for (int i = 0; i < emulatorFiles.size(); ++i) {
-        if (FileHelper::fileExists(emulatorFiles[i])) {
-            detections.append("- Detected Emulator File: " + emulatorFiles[i] + "\n");
+    for (const auto& emulatorFile : emulatorFiles) {
+        if (FileHelper::fileExists(emulatorFile)) {
+            detections.append("- Detected Emulator File: " + emulatorFile + "\n");
         }
     }
 }
@@ -134,6 +134,20 @@ void checkCPUArchitecture() {
     }
 }
 
+/*
+ * Can be hidden by Remapping libhoudini.so but not sure if that may break the app
+ */
+void checkArmTranslation() {
+    vector<dl_phdr_info> info = FileHelper::getLoadedLibraries();
+
+    for (dl_phdr_info i : info) {
+        if (strstr(i.dlpi_name, "libhoudini.so")) {
+            detections.append("- Detected ARM Translation Module\n");
+        }
+    }
+}
+
+
 extern "C" {
     JNIEXPORT jboolean JNICALL
     Java_com_reveny_emulator_detection_MainActivity_isDetected(JNIEnv *env, jobject clazz) {
@@ -143,6 +157,7 @@ extern "C" {
         checkCPU();
         checkFiles();
         checkCPUArchitecture();
+        checkArmTranslation();
 
         return !detections.empty();
     }
