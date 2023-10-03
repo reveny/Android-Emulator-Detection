@@ -38,9 +38,9 @@ void checkHardware() {
     string device = ::getSystemProperty("ro.product.device");
     string hardware = ::getSystemProperty("ro.hardware");
 
-    for (const string& product : products) {
-        if (strcmp(product.c_str(), product.c_str()) != 0) {
-            detections.append(string("- Detected Product: ") + product + "\n");
+    for (const string& _product : products) {
+        if (strcmp(_product.c_str(), product.c_str()) == 0) {
+            detections.append(string("- Detected Product: ") + _product + "\n");
         }
     }
 
