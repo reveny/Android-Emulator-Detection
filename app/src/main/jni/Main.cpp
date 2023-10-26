@@ -147,6 +147,14 @@ void checkArmTranslation() {
     }
 }
 
+void checkVMOSEmulation() {
+    std::string model = getSystemProperty("ro.product.model");
+    std::string device = getSystemProperty("ro.product.vendor.name");
+
+    if (StringUtility::stringContains(model, "vmos") || StringUtility::stringContains(device, "vmos")) {
+        detections.append("- Detected VMOS Emulation\n");
+    }
+}
 
 extern "C" {
     JNIEXPORT jboolean JNICALL
@@ -158,6 +166,7 @@ extern "C" {
         checkFiles();
         checkCPUArchitecture();
         checkArmTranslation();
+        checkVMOSEmulation();
 
         return !detections.empty();
     }
