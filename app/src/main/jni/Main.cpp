@@ -17,13 +17,11 @@ string detections;
 /*
  * Read System property. Type getprop in shell to list all props
  */
-string getSystemProperty(char *input) {
+string getSystemProperty(const char *input) {
     char sdk_ver_str[PROP_VALUE_MAX];
-    string output;
+    string output{};
     if (__system_property_get(input, sdk_ver_str)) {
         output = string(sdk_ver_str);
-    } else {
-        output = string("unknown");
     }
     return output;
 }
@@ -144,6 +142,10 @@ void checkArmTranslation() {
         if (strstr(i.dlpi_name, "libhoudini.so")) {
             detections.append("- Detected ARM Translation Module\n");
         }
+    }
+
+    if (!getSystemProperty("ro.dalvik.vm.native.bridge").empty()) {
+        detections.append("- Detected ARM Translation Property\n");
     }
 }
 
