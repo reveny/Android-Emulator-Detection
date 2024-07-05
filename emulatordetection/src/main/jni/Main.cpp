@@ -145,6 +145,10 @@ void checkArmTranslation() {
             detections.append("- Detected ARM Translation Module\n");
         }
     }
+
+    if (!getSystemProperty("ro.dalvik.vm.native.bridge").empty()) {
+        detections.append("- Detected ARM Translation Property\n");
+    }
 }
 
 void checkVMOSEmulation() {
