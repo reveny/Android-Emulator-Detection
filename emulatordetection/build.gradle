@@ -1,0 +1,69 @@
+plugins {
+    id 'com.android.library'
+}
+
+ext {
+    PUBLISH_GROUP_ID = 'com.reveny.emulator.detection'
+    PUBLISH_ARTIFACT_ID = 'EmulatorDetectionPlugin'
+    PUBLISH_VERSION = '1.0'
+}
+
+android {
+    namespace 'com.reveny.emulator.detection'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+
+        libraryVariants.all { variant ->
+            def variantName = variant.name.capitalize()
+            def copyTaskName = "copy${variantName}Artifacts"
+            def assembleTaskName = "assemble${variantName}"
+            task(copyTaskName, type: Copy, dependsOn: assembleTaskName, group: "build") {
+                variant.outputs.each { output ->
+                    def newOutputName = output.outputFile.name.replace(".aar", "-" + android.defaultConfig.versionName + ".aar")
+                    from(output.outputFile.parent) {
+                        include output.outputFile.name
+                        rename output.outputFile.name, newOutputName
+                    }
+                }
+                //into project.buildDir
+                into(layout.buildDirectory.dir("../../ReleaseFiles"))
+
+            }
+            project.tasks.getByName(assembleTaskName).finalizedBy(copyTaskName)
+        }
+    }
+
+    buildTypes {
+        debug {
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
+    }
+    ndkVersion = '25.1.8937393'
+}
+
+dependencies {
+}
