@@ -132,6 +132,8 @@ void checkCPUArchitecture() {
     }
 }
 
+#include <android/log.h>
+
 /*
  * Can be hidden by Remapping libhoudini.so but not sure if that may break the app
  */
@@ -144,7 +146,8 @@ void checkArmTranslation() {
         }
     }
 
-    if (!getSystemProperty("ro.dalvik.vm.native.bridge").empty()) {
+    __android_log_print(6, "Test", "%s", getSystemProperty("ro.dalvik.vm.native.bridge").c_str());
+    if (!(getSystemProperty("ro.dalvik.vm.native.bridge") == "0")) {
         detections.append("- Detected ARM Translation Property\n");
     }
 }
