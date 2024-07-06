@@ -41,15 +41,16 @@ android {
     }
 
     buildTypes {
+
+        release {
+            getIsDefault().set(true)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         debug {
             ndk {
                 debugSymbolLevel 'FULL'
             }
-        }
-
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
