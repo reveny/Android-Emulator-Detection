@@ -1,0 +1,5 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme" />
+    <style name="ThemeOverlay.MaterialSakura" parent="ThemeOverlay.Dark.MaterialSakura"/>
+</resources>

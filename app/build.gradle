@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.application'
+    alias(libs.plugins.materialthemebuilder)
+}
+
+android {
+    namespace 'com.reveny.emulatordetection'
+    compileSdk rootProject.ext.androidCompileSdkVersion
+
+    defaultConfig {
+        applicationId "com.reveny.emulator.detection.sample"
+        minSdk rootProject.ext.androidMinSdkVersion
+        targetSdk rootProject.ext.androidTargetSdkVersion
+        if (project.plugins.hasPlugin('com.android.application')) {
+            versionCode rootProject.ext.verCode
+            versionName rootProject.ext.verName
+        }
+
+        buildConfigField 'long', 'BUILD_TIME', Instant.now().epochSecond.toString()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+materialThemeBuilder {
+    themes {
+        def themes = ['Sakura': 'FF9CA8']
+        themes.each { name, color ->
+            create("Material${name}") {
+                lightThemeFormat = "ThemeOverlay.Light.%s"
+                darkThemeFormat = "ThemeOverlay.Dark.%s"
+                primaryColor = "#${color}"
+            }
+        }
+    }
+    generatePalette true
+}
+
+dependencies {
+    implementation project(':emulatordetection')
+
+    implementation(libs.bundles.androidx)
+    implementation(libs.bundles.rikkax)
+}
+
+configurations.configureEach {
+    exclude group: 'androidx.appcompat', module: 'appcompat'
+}

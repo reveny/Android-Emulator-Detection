@@ -1,5 +1,42 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        defaultPackageName = 'com.reveny.emulatordetector'
+        verCode = 150
+        verName = '1.5.0'
+        androidTargetSdkVersion = 34
+        androidMinSdkVersion = 24
+        androidBuildToolsVersion = '34.0.0'
+        androidCompileSdkVersion = 34
+        androidCompileNdkVersion = '27.0.12077973'
+        androidSourceCompatibility = JavaVersion.VERSION_17
+        androidTargetCompatibility = JavaVersion.VERSION_17
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        // classpath libs.gradle
+        classpath libs.gradle.plugin
+        classpath libs.kotlin.gradle.plugin
+    }
+}
+
 plugins {
-id 'com.android.application' version '8.1.0-rc01' apply false
-    id 'com.android.library' version '8.1.0-rc01' apply false
+    alias(libs.plugins.materialthemebuilder) apply false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
 }
