@@ -32,8 +32,8 @@ namespace FileHelper {
                     auto size = static_cast<size_t>(static_cast<char *>(endAddr) - static_cast<char *>(startAddr));
 
                     if (permissions.find('r') != std::string::npos) {
-                        for (size_t offset = 0; offset <= size - targetString.size(); offset++) {
-                            if (memcmp(static_cast<char *>(startAddr) + offset, targetString.c_str(), targetString.size()) == 0) {
+                        for (size_t off = 0; off <= size - targetString.size(); off++) {
+                            if (memcmp(static_cast<char *>(startAddr) + off, targetString.c_str(), targetString.size()) == 0) {
                                 return true;
                             }
                         }
@@ -91,6 +91,8 @@ namespace FileHelper {
     inline std::vector<dl_phdr_info> getLoadedLibraries() {
         std::vector<dl_phdr_info> infos{};
         dl_iterate_phdr([](struct dl_phdr_info *info, size_t size, void *data) -> int {
+            (void) size;
+
             if ((info)->dlpi_name == nullptr) {
                 return 0;
             }
