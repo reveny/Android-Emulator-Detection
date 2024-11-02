@@ -35,8 +35,40 @@ While this project is licensed under the GPLv3 License,
 I would appreciate it if you contacted me first for commercial use to support further development. 
 See the [LICENSE](LICENSE) file for full details.
 
-## Contribution
-If you have any ideas or suggestions to improve this project, feel free to create a pull request or contact me directly.
+## Contributions
+Contributions are welcome to help improve this project! If you’re interested in adding features or enhancing functionality, feel free to submit a pull request or open an issue to discuss your ideas.
 
-# Preview
-![image](https://github.com/reveny/Android-Emulator-Detection/blob/main/preview.png)
+### To-Do List
+- [ ] **GitHub Actions**: Set up GitHub Actions for automated builds, testing, and linting to streamline the development process.
+- [ ] **Enhanced Emulator Detection**: Add more robust detection methods for various emulator environments, including less commonly used emulators.
+- [ ] **Performance Optimizations**: Optimize the detection algorithms to minimize resource usage on the app.
+
+If you’d like to contribute, please ensure that your code follows the project’s style.
+
+## Preview
+<img src="https://github.com/reveny/Android-Emulator-Detection/blob/main/preview.png" width="350">
+
+## Changelog
+
+### v1.5.0
+- New Detections
+- Updated UI
+- Cleaned up old and inefficient code
+- Changed versioning system
+
+### v4
+- Converted core features to library module for `.aar` release
+- Changed versioning system
+- Fixed issue #1
+- **New Contributor**: @onedevapp
+
+### v0.3
+- Added detection by checking Native Bridge property
+
+### v0.2
+- Fixed various issues
+- Added ARM Translation Detection
+
+### v0.1
+- Initial release with detection for Android Studio Emulator and gaming emulators (tested on LDPlayer)
+
