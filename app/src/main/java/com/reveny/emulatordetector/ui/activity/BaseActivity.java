@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.reveny.emulatordetector.util.ThemeUtil;
-
 import rikka.material.app.MaterialActivity;
 
 public class BaseActivity extends MaterialActivity {
@@ -46,9 +44,6 @@ public class BaseActivity extends MaterialActivity {
     }
     @Override
     public void onApplyUserThemeResource(@NonNull Resources.Theme theme, boolean isDecorView) {
-        // if (!ThemeUtil.isSystemAccent()) {
-        //     theme.applyStyle(ThemeUtil.getColorThemeStyleRes(), true);
-        // }
     }
 
     @Override

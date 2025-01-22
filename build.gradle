@@ -4,7 +4,7 @@ buildscript {
         verCode = 150
         verName = '1.5.0'
         androidTargetSdkVersion = 34
-        androidMinSdkVersion = 24
+        androidMinSdkVersion = 23
         androidBuildToolsVersion = '34.0.0'
         androidCompileSdkVersion = 34
         androidCompileNdkVersion = '27.0.12077973'
