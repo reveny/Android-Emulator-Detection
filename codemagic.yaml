@@ -1,21 +1,61 @@
 workflows:
   build-android-apk:
-    name: Build Android APK
+    name: Build Android APK (debug)
+    # билд на Mac mini M2 (как у тебя в UI)
+    instance_type: mac_mini_m2
+    max_build_duration: 60   # минуты, при необходимости увеличь
     environment:
+      # явно указываем Java 17 (совместимо с Gradle 7+/AGP требующими Java 17)
+      java: 17
+      # Опционально: явный JAVA_HOME для macOS (Zulu JDK 17 доступен на Codemagic mac images)
       vars:
-        JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-      flutter: stable
+        JAVA_HOME: /Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+      # если потребуется конкретный NDK, можно добавить ndk: rXX (обычно держим в gradle)
+      # ndk: r25c
+
+    # кэш для ускорения повторных сборок
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.gradle/wrapper
+
     scripts:
-      - name: Set up environment
+      - name: Print environment (debug)
         script: |
-          echo "Using Java 17 and Android SDK from Codemagic environment"
+          #!/bin/sh
+          set -ex
+          echo "==== Codemagic env ===="
+          printenv | sort
+          echo "java version:"
+          java -version || true
+          echo "gradle wrapper info:"
+          ./gradlew --version || true
+
+      - name: Ensure gradlew is executable
+        script: |
+          #!/bin/sh
+          set -ex
+          chmod +x ./gradlew
+
+      - name: Clean (optional)
+        script: |
+          #!/bin/sh
+          set -ex
+          ./gradlew clean
+
       - name: Build debug APK
         script: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          #!/bin/sh
+          set -ex
+          # если у тебя корневой модуль называется не app, gradle сам соберёт все assembleDebug таски
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
     artifacts:
-      - app/build/outputs/**/*.apk
+      # универсальный паттерн: найдет apk во всех модулях
+      - '**/build/outputs/**/*.apk'
+
     publishing:
+      # не обязательно — можно удалить. оставил пустой пример (не шлём в магазин)
       email:
         recipients:
-          - your@email.com  # можешь удалить
+          - ""   # можно удалить или указать mail для уведомлений
