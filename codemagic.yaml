@@ -4,18 +4,18 @@ workflows:
     environment:
       vars:
         JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-      android:
-        image: latest
+      flutter: stable
     scripts:
       - name: Set up environment
         script: |
-          echo "Using Java 17 and latest Android SDK"
+          echo "Using Java 17 and Android SDK from Codemagic environment"
       - name: Build debug APK
         script: |
+          chmod +x gradlew
           ./gradlew assembleDebug
     artifacts:
       - app/build/outputs/**/*.apk
     publishing:
       email:
         recipients:
-          - your@email.com  # можно удалить, если не нужно уведомление
+          - your@email.com  # можешь удалить
