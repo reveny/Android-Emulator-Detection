@@ -1,8 +1,8 @@
 [versions]
-agp = "8.1.0"
-gradle = "8.2.2"
+agp = "8.5.2"
+gradle = "8.7"
 gradle-plugin = "5.1.0"
-kotlin-gradle-plugin = "1.7.10"
+kotlin-gradle-plugin = "1.9.24"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -10,7 +10,7 @@ materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = 
 
 # Dependencies section
 [libraries]
-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradle-plugin = { module = "com.github.megatronking.stringfog:gradle-plugin", version.ref = "gradle-plugin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
 rikkax-appcompat = { module = "dev.rikka.rikkax.appcompat:appcompat", version = "1.6.1" }

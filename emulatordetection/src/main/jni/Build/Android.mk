@@ -12,7 +12,7 @@ ifeq ($(NDK_DEBUG),0)
     LOCAL_CPPFLAGS += -O1
     LOCAL_CPPFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden
     LOCAL_CPPFLAGS += -fno-unwind-tables -fno-asynchronous-unwind-tables -fomit-frame-pointer
-
+    LOCAL_LDFLAGS += "-Wl,-z,max-page-size=16384"
     LOCAL_LDFLAGS += -Wl,--strip-all -Wl,--exclude-libs,ALL
 endif
 
