@@ -1,12 +1,12 @@
 buildscript {
     ext {
         defaultPackageName = 'com.reveny.emulatordetector'
-        verCode = 150
-        verName = '1.5.0'
-        androidTargetSdkVersion = 34
+        verCode = 151
+        verName = '1.5.1'
+        androidTargetSdkVersion = 35
         androidMinSdkVersion = 23
-        androidBuildToolsVersion = '34.0.0'
-        androidCompileSdkVersion = 34
+        androidBuildToolsVersion = '35.0.0'
+        androidCompileSdkVersion = 35
         androidCompileNdkVersion = '27.0.12077973'
         androidSourceCompatibility = JavaVersion.VERSION_17
         androidTargetCompatibility = JavaVersion.VERSION_17
@@ -20,7 +20,7 @@ buildscript {
 
     dependencies {
         // classpath libs.gradle
-        classpath libs.gradle.plugin
+        classpath libs.gradle
         classpath libs.kotlin.gradle.plugin
     }
 }
